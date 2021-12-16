@@ -4,20 +4,73 @@ import AppRouter from './routers/AppRouter';
 import reportWebVitals from './reportWebVitals';
 import "./app.css"
 //Redux core
-import {createStore} from "redux"
+import {createStore, combineReducers} from "redux"
 
-const initState={
-  count:10
+import { v4 as uuid } from 'uuid';
+
+
+const blogState= [];
+
+//Action creator
+const addBlog = ({title="No Title", description="No description.", dateAdded=0}) => ({
+  type: "ADD_BLOG",
+  blog: {
+    id: uuid(),
+    title: title,
+    description: description,
+    dateAdded: dateAdded
+  }
+})
+
+const blogReducer = (state = blogState, action) =>{
+  switch (action.type) {
+    case "ADD_BLOG":
+      return [...state, action.blog]
+    
+    
+    
+    default:
+      return state;
+  }
 }
 
-//Store      container yapısı, uygulamadaki tüm statelere buradan ulaşılıyor.
-const store= createStore((state= initState)=>{
-  return state;
+
+const authState= {};
+
+const authReducer = (state = authState, action) =>{
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
+
+
+
+const store = createStore(
+  // Birden fazla reducer i bir arada store içinde kullanabilmeyi sağlıyor.
+  combineReducers({
+    blogs: blogReducer,
+    auth: authReducer
+  })
+);
+
+store.subscribe(() =>{
+  console.log(store.getState());
 });
 
 
-// get state
-console.log(store.getState());
+//Action
+store.dispatch(addBlog({title: "Hi", description: "cat.", dateAdded: Date.now()}));
+
+
+
+
+
+
+
+
+
+
 
 ReactDOM.render(<AppRouter />, document.getElementById('root'));
 
