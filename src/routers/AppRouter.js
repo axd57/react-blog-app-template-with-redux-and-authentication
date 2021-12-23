@@ -7,6 +7,8 @@ import BlogListPage from '../components/BlogListPage'
 import BlogDetailsPage from '../components/BlogDetailsPage'
 import ContactPage from '../components/ContactPage'
 import NotFoundPage from '../components/NotFoundPage'
+import AddBlogPage from '../components/AddBlogPage'
+import EditBlogPage from '../components/EditBlogPage'
 
 const AppRouter = () => {
     return (
@@ -16,6 +18,8 @@ const AppRouter = () => {
                 <Routes>
                     <Route path='/' element={<HomePage/>} />
                     <Route path='/blogs' element={<BlogListPage/>} />
+                    <Route path='/create' element={<AddBlogPage/>} />
+                    <Route path='/edit/:id' element={<EditBlogPage/>} />
                     <Route path='/blogs/:id' element={<BlogDetailsPage/>} />
                     <Route path='/contact' element={<ContactPage/>} />
                     <Route path="*" element={<NotFoundPage/>} />
