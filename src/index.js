@@ -1,69 +1,55 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+//React redux
+import { Provider } from "react-redux";
+
 import AppRouter from "./routers/AppRouter";
 import reportWebVitals from "./reportWebVitals";
 import "./app.css";
-//Redux core
-import { createStore, combineReducers } from "redux";
 
-import { v4 as uuid } from "uuid";
+//Store
+import configureStore from "./store/configureStore"
 
-const blogState = [];
-
-//Action creator
-const addBlog = ({
-  title = "No Title",
-  description = "No description.",
-  dateAdded = 0,
-}) => ({
-  type: "ADD_BLOG",
-  blog: {
-    id: uuid(),
-    title: title,
-    description: description,
-    dateAdded: dateAdded,
-  },
-});
-
-const blogReducer = (state = blogState, action) => {
-  switch (action.type) {
-    case "ADD_BLOG":
-      return [...state, action.blog];
-
-    default:
-      return state;
-  }
-};
+import {addBlog, removeBlog, editBlog} from "./actions/blogs"
 
 
+const store= configureStore();
 
-const authState = {};
-
-const authReducer = (state = authState, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
-
-const store = createStore(
-  // Birden fazla reducer i bir arada store içinde kullanabilmeyi sağlıyor.
-  combineReducers({
-    blogs: blogReducer,
-    auth: authReducer,
-  })
-);
-
+//State action metotları vasıtasıyla değiştiğinde çalışıyor
 store.subscribe(() => {
   console.log(store.getState());
 });
 
 //Action
-store.dispatch(
-  addBlog({ title: "Hi", description: "cat.", dateAdded: Date.now() })
+
+//Add blog
+const blog1 = store.dispatch(
+  addBlog({ title: "Hi-1", description: "cat.-1", dateAdded: Date.now()})
 );
 
-ReactDOM.render(<AppRouter />, document.getElementById("root"));
+console.log("blog id info: ", blog1.blog.id);
+
+const blog2 = store.dispatch(
+  addBlog({ title: "Hi", description: "cat.", dateAdded: Date.now()})
+);
+
+store.dispatch(
+  addBlog({ title: "Hi-3", description: "cat.", dateAdded: Date.now()})
+);
+
+//Remove blog
+store.dispatch(
+  removeBlog({id: blog1.blog.id})
+);
+
+//Update blog
+store.dispatch(
+  editBlog(blog2.blog.id, {title: "Hi- updated"})
+);
+
+// Provider ile App routerdan erişile tüm componentlere veriler aktarıla biliniyor. Veriler store dan alınıyor.
+ReactDOM.render(<Provider store={store}> <AppRouter /> </Provider>, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
