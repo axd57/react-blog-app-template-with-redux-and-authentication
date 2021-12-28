@@ -13,6 +13,8 @@ import configureStore from "./store/configureStore"
 
 import {addBlog, removeBlog, editBlog} from "./actions/blogs"
 
+//Firebase
+import "./firebase/firebaseConfig"
 
 const store= configureStore();
 
