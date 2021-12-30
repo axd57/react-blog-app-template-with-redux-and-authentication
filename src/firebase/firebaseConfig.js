@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, remove } from "firebase/database";
+import { getDatabase, ref, set, remove, update, onValue, child, get, push } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA7ZxfhKrgEeLG7onANYxRx1ZMduvBv1gA",
@@ -27,7 +27,7 @@ set(ref(database), {
         console.log("tags added")
     });
     console.log("Added");
-    
+
 }).catch((e) =>{ //İşlem sırasında hata çıktığında çalışıyor.
     console.log("Error: ", e);
 });
@@ -44,15 +44,55 @@ set(ref(database, "auter"), {
     surname: "Dog-u"
 });
 
-//Object eleman güncelleme
+//Object eleman değiştirme
 set(ref(database, "auter/name"), "Cat-u2");
 
+// Var olan bir alana yeni eleman ekleme
+push(ref(database, "auter"), {cat : "test"});
 
 //Veri silme
-remove(ref(database, "title"));
-set(ref(database, "title"), null);
+// remove(ref(database, "title"));
+// set(ref(database, "title"), null);
 
 //Herşeyi silme
-remove(ref(database));
-set(ref(database), null);
+//remove(ref(database));
+//set(ref(database), null);
+
+//veri güncelleme
+update(ref(database), {
+    title: "Updated Blog",
+    "auter/name" : "Cat-u2 Updated",
+    //Olayan alan güncellenmek istendiğinde o alan eklenir
+    imageURL: "Test"
+});
+
+update(ref(database, "auter"), {
+  name: "Cat-u2 Updated2"
+});
+
+// id ile veri güncelleme
+update(ref(database, "auter/-MsAon2eD0WuWpJIGY9M"), {
+    name: "Cat-u2 Updated3"
+  });
+
+//Veri sorgulama
+// Gelen verilerde değişiklik olduğunda yeni veriler otomatik olarak gelir
+onValue(ref(database), (snapshot) =>{
+    console.log("Datas - onValue: ", snapshot.val());
+});
+
+onValue(ref(database, "auter"), (snapshot) =>{
+    console.log("Auter data - onValue: ", snapshot.val());
+});
+
+// Sorgu bir kere çalışır gelen verilerde güncelleme olsa bile  veriler otomatik olarak gelmez
+get(child(ref(database), "auter")).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log("Auter data - once: ",snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
 
