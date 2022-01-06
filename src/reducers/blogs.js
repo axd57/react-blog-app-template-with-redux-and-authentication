@@ -22,6 +22,9 @@ const blogReducer = (state = blogState, action) => {
           return blog;
       });
     
+    case "SET_BLOGS":
+      return action.blogs
+
     default:
       return state;
   }

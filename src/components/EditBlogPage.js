@@ -2,7 +2,7 @@ import React from 'react'
 import BlogForm from './BlogForm'
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { editBlog, removeBlog } from '../actions/blogs';
+import { editBlog, removeBlog, removeBlogFromeDatabase, editBlogFromeDatabase } from '../actions/blogs';
 import { useNavigate } from 'react-router-dom';
 
 let id = "";
@@ -17,12 +17,12 @@ const EditBlogPage = (props) => {
             <BlogForm 
                 blog={props.blog}
                 onSubmit = {(blog) => {
-                    props.dispatch(editBlog(props.blog.id, blog));
+                    props.dispatch(editBlogFromeDatabase(props.blog.id, blog));
                     navigate("/blogs");
                 }}
             />
             <button onClick={() =>{
-                props.dispatch(removeBlog({id: props.blog.id}));
+                props.dispatch(removeBlogFromeDatabase(props.blog.id));
                 navigate("/blogs");
             }}>Delete</button>
         </div>
