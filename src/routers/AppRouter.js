@@ -9,14 +9,14 @@ import ContactPage from '../components/ContactPage'
 import NotFoundPage from '../components/NotFoundPage'
 import AddBlogPage from '../components/AddBlogPage'
 import EditBlogPage from '../components/EditBlogPage'
-
+import LoginPage from '../components/LoginPage'
 const AppRouter = () => {
     return (
         <BrowserRouter>
             <div>
                 <Header/>
                 <Routes>
-                    <Route path='/' element={<HomePage/>} />
+                    <Route path='/' element={<LoginPage/>} />
                     <Route path='/blogs' element={<BlogListPage/>} />
                     <Route path='/create' element={<AddBlogPage/>} />
                     <Route path='/edit/:id' element={<EditBlogPage/>} />

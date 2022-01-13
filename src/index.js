@@ -15,6 +15,7 @@ import {addBlog, removeBlog, editBlog, getBlogsFromDatabase} from "./actions/blo
 
 //Firebase
 import "./firebase/firebaseConfig"
+import { onAuthStateChanged, getAuth } from "./firebase/firebaseConfig";
 
 const store= configureStore();
 
@@ -58,6 +59,15 @@ store.dispatch(getBlogsFromDatabase()).then(() => {
   // Provider ile App routerdan erişile tüm componentlere veriler aktarıla biliniyor. Veriler store dan alınıyor.
 ReactDOM.render(<Provider store={store}> <AppRouter /> </Provider>, document.getElementById("root"));
 });
+const auth = getAuth();
+onAuthStateChanged(auth,  (user) => {
+  if (user) {
+    console.log("Login");
+    console.log(user);
+  } else {
+    console.log("Logout");
+  }
+})
 
 
 // If you want to start measuring performance in your app, pass a function
