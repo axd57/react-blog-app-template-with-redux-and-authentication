@@ -10,6 +10,11 @@ import NotFoundPage from '../components/NotFoundPage'
 import AddBlogPage from '../components/AddBlogPage'
 import EditBlogPage from '../components/EditBlogPage'
 import LoginPage from '../components/LoginPage'
+//Hata
+import PrivateRoute from "./PrivateRoute"
+//Hata
+import PublicRoute from "./PublicRoute"
+
 const AppRouter = () => {
     return (
         <BrowserRouter>

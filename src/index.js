@@ -5,17 +5,20 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
 import AppRouter from "./routers/AppRouter";
+import { useNavigate } from 'react-router-dom';
 import reportWebVitals from "./reportWebVitals";
 import "./app.css";
 
 //Store
 import configureStore from "./store/configureStore"
 
-import {addBlog, removeBlog, editBlog, getBlogsFromDatabase} from "./actions/blogs"
+import {addBlog, removeBlog, editBlog, getBlogsFromDatabase, clearBlogs} from "./actions/blogs"
 
 //Firebase
 import "./firebase/firebaseConfig"
 import { onAuthStateChanged, getAuth } from "./firebase/firebaseConfig";
+
+import {loginAction, logoutAction} from "./actions/auth";
 
 const store= configureStore();
 
@@ -59,16 +62,22 @@ store.dispatch(getBlogsFromDatabase()).then(() => {
   // Provider ile App routerdan erişile tüm componentlere veriler aktarıla biliniyor. Veriler store dan alınıyor.
 ReactDOM.render(<Provider store={store}> <AppRouter /> </Provider>, document.getElementById("root"));
 });
+
 const auth = getAuth();
 onAuthStateChanged(auth,  (user) => {
   if (user) {
     console.log("Login");
-    console.log(user);
+    console.log(user.uid);
+    store.dispatch(loginAction(user.uid));
   } else {
+    //Hata
+   // let navigate = useNavigate();
+    //navigate("/");
     console.log("Logout");
+    store.dispatch(logoutAction());
+    store.dispatch(clearBlogs());
   }
 })
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
