@@ -1,1 +1,1 @@
-#
+# React Blog App Template
