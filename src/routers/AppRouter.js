@@ -21,11 +21,11 @@ const AppRouter = () => {
             <div>
                 <Header/>
                 <Routes>
-                    <Route path='/' element={<LoginPage/>} />
-                    <Route path='/blogs' element={<BlogListPage/>} />
-                    <Route path='/create' element={<AddBlogPage/>} />
-                    <Route path='/edit/:id' element={<EditBlogPage/>} />
-                    <Route path='/blogs/:id' element={<BlogDetailsPage/>} />
+                    <Route path='/' element={<PublicRoute> <LoginPage/> </PublicRoute>} />
+                    <Route path='/blogs' element={<PrivateRoute> <BlogListPage/> </PrivateRoute>} />
+                    <Route path='/create' element={<PrivateRoute> <AddBlogPage/> </PrivateRoute>} />
+                    <Route path='/edit/:id' element={<PrivateRoute> <EditBlogPage/> </PrivateRoute>} />
+                    <Route path='/blogs/:id' element={<PrivateRoute> <BlogDetailsPage/> </PrivateRoute>} />
                     <Route path='/contact' element={<ContactPage/>} />
                     <Route path="*" element={<NotFoundPage/>} />
                 </Routes>

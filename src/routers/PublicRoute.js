@@ -1,19 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Route, Navigate } from 'react-router-dom';
-//Hata
-const PublicRoute = ({isAuthenticated, component:Component, ...rest}) => (
-  <Route {...rest} component = {(props) => (
-    isAuthenticated ? (
-        <Navigate to="/blogs" />
-    ):(
-        <Component {...props} />
-    )
-  )}/>
-);
+import React from "react";
+import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
+
+//Giriş yapılmadan gezme durumlarında kullanılır
+const PublicRoute = ({ isAuthenticated, children }) => (
+  isAuthenticated ? <Navigate to="/blogs" /> : children
+)
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: !! state.auth.uid
+    isAuthenticated: !!state.auth.uid,
 });
 
 export default connect(mapStateToProps)(PublicRoute);

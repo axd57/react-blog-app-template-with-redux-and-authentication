@@ -47,15 +47,15 @@ export default class BlogForm extends Component {
     
     render() {
         return (
-            <div> {/* && nin solundaki kısım null değişlse sağındaki kısım çalışıyor*/}
+            <div> {/* && nin solundaki kısım null değilse sağındaki kısım çalışıyor*/}
                 {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit = {this.onSubmit}>
                     <div>
-                        <input placeholder='enter title' value={this.state.title} onChange={this.onTitleChange}/>
+                        <input placeholder='Enter title' value={this.state.title} onChange={this.onTitleChange}/>
                     </div>
 
                     <div>
-                        <textarea placeholder='enter description' value={this.state.description} onChange={this.onDescritiopnChange}></textarea>
+                        <textarea placeholder='Enter description' value={this.state.description} onChange={this.onDescritiopnChange}></textarea>
                     </div>
                     <div>
                         <button type='submit'>Save changes</button>

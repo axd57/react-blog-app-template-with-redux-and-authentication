@@ -5,10 +5,10 @@ import BlogList from './BlogList'
 const BlogListPage = () => {
     return (
         <div>
-            <div>Blog list page</div>
+            <div>Blog List Page</div>
+            <hr />
             <BlogList/>
-            <Link to="/blogs/1">Blog 1</Link>
-            <Link to="/blogs/2">Blog 2</Link>
+            
         </div>
     )
 }

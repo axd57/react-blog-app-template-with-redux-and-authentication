@@ -1,8 +1,9 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {logout} from "../actions/auth"
 
 const Header = () => {
+    let navigate = useNavigate();
     return (
         <header>
             <h1>Blog app</h1>
@@ -10,7 +11,10 @@ const Header = () => {
             <NavLink to="/blogs">Blogs</NavLink>
             <NavLink to="/create">Create</NavLink>
             <NavLink to="/contact">Contact</NavLink>
-            <button onClick={logout}>Logout</button>
+            <button style={{marginLeft: "15px"}} onClick={_=>{
+                logout();
+                navigate("/");
+            }}>Logout</button>
         </header>
     )
 }

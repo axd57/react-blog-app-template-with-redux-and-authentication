@@ -11,6 +11,7 @@ const AddBlogPAge = (props) => {
     return (
         <div>
             <h1>Add Blog</h1>
+            {/* BlogForm daki onSubmit metotunun döndürdüğü değer (blog) değeri yerine geliyor. */}
             <BlogForm onSubmit = {(blog) => {
                 props.dispatch(addBlogToDatabase(blog));
                 //Başkabir sayfaya yönlendirme yapılıyor.

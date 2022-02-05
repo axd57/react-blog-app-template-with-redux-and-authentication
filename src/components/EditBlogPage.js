@@ -5,37 +5,35 @@ import { connect } from 'react-redux';
 import { editBlog, removeBlog, removeBlogFromeDatabase, editBlogFromeDatabase } from '../actions/blogs';
 import { useNavigate } from 'react-router-dom';
 
-let id = "";
-
 const EditBlogPage = (props) => {
-    id = useParams().id;
     const navigate = useNavigate();
+    const blogId = useParams().id;
+    
+    let cBlog = props.blogs.find(blog =>  blog.id === blogId)
     
     return (
         <div>
             Edit Page
             <BlogForm 
-                blog={props.blog}
+                blog={cBlog}
                 onSubmit = {(blog) => {
-                    props.dispatch(editBlogFromeDatabase(props.blog.id, blog));
+                   props.dispatch(editBlogFromeDatabase(cBlog.id, blog));
                     navigate("/blogs");
                 }}
             />
             <button onClick={() =>{
-                props.dispatch(removeBlogFromeDatabase(props.blog.id));
+                props.dispatch(removeBlogFromeDatabase(cBlog.id));
                 navigate("/blogs");
             }}>Delete</button>
         </div>
     )
 }
 
-//index.js deki provider dan gelen veriler. store
-const mapStateToProps = (state) => {
+const mapStateToProps = (store) => {
     return{
-        blog: state.blogs.find((blog) => {
-            return blog.id === id
-        })
+        blogs: store.blogs
     }
 }
+
 
 export default connect(mapStateToProps)(EditBlogPage);

@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Navigate } from 'react-router-dom';
-//Hata
-const PrivateRoute = ({isAuthenticated, component:Component, ...rest}) => (
-  <Route {...rest} component = {(props) => (
-    isAuthenticated ? (
-        <Component {...props} />
-    ):(
-        <Navigate to="/" />
-    )
-  )}/>
-);
+import { Navigate } from 'react-router-dom';
+
+//Giriş yapılarak gezme durumlarında kullanılır
+const PrivateRoute = ({ isAuthenticated, children }) => (
+  isAuthenticated ? children : <Navigate to="/" />
+)
 
 const mapStateToProps = (state) => ({
     isAuthenticated: !! state.auth.uid

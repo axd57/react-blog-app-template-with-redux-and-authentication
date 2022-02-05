@@ -5,25 +5,22 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import BlogDetailsItem from './BlogDetailsItem';
 
-let id = "";
-
 const BlogDetailsPage = (props) => {
-    id = useParams().id;
+    const blogId = useParams().id;
     
-    console.log("hi", id);
+    let cBlog = props.blogs.find(blog =>  blog.id === blogId)
+    
     return (
         <div>
-            <BlogDetailsItem {...props.blog}/>
+            <BlogDetailsItem {...cBlog}/>
         </div>
     )
 }
 
 //index.js deki provider dan gelen veriler. store
-const mapStateToProps = (state) => {
+const mapStateToProps = (store) => {
     return{
-        blog: state.blogs.find((blog) => {
-            return blog.id === id
-        })
+        blogs: store.blogs
     }
 }
 
