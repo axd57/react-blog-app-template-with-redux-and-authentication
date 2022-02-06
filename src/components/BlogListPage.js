@@ -5,7 +5,7 @@ import BlogList from './BlogList'
 const BlogListPage = () => {
     return (
         <div>
-            <div>Blog List Page</div>
+            <p>Blog List Page</p>
             <hr />
             <BlogList/>
             

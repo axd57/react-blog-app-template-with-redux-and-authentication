@@ -6,7 +6,7 @@ const Header = () => {
     let navigate = useNavigate();
     return (
         <header>
-            <h1>Blog app</h1>
+            <h1>Blog App Template</h1>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/blogs">Blogs</NavLink>
             <NavLink to="/create">Create</NavLink>

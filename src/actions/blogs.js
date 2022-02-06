@@ -26,9 +26,9 @@ export const addBlogToDatabase = (blogData = {}) => {
     };
 };
 
-export const removeBlog = ({ id }) => ({
+export const removeBlog = (id) => ({
     type: "REMOVE_BLOG",
-    id: id,
+    id
 });
 
 export const removeBlogFromeDatabase = (id) => {
@@ -48,7 +48,7 @@ export const editBlog = (id, updates) => ({
 export const editBlogFromeDatabase = (id, updates) => {
     return (dispatch) => {
         return update(ref(database, `blogs/${id}`), updates).then(() => {
-            dispatch(editBlog(id, update));
+           dispatch(editBlog(id, updates));
         });
     };
 };
@@ -63,7 +63,6 @@ export const getBlogsFromDatabase = () => {
         return get(child(ref(database), "blogs"))
             .then((snapshot) => {
                 const uid = getState().auth.uid;
-                console.log("FB uid: ", uid);
                 if (snapshot.exists()) {
                     const blogs = [];
 

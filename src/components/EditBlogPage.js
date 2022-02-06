@@ -2,7 +2,7 @@ import React from 'react'
 import BlogForm from './BlogForm'
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { editBlog, removeBlog, removeBlogFromeDatabase, editBlogFromeDatabase } from '../actions/blogs';
+import { removeBlogFromeDatabase, editBlogFromeDatabase } from '../actions/blogs';
 import { useNavigate } from 'react-router-dom';
 
 const EditBlogPage = (props) => {
@@ -13,11 +13,11 @@ const EditBlogPage = (props) => {
     
     return (
         <div>
-            Edit Page
+            <h1>Edit Blog</h1>
             <BlogForm 
                 blog={cBlog}
                 onSubmit = {(blog) => {
-                   props.dispatch(editBlogFromeDatabase(cBlog.id, blog));
+                    props.dispatch(editBlogFromeDatabase(cBlog.id, blog));
                     navigate("/blogs");
                 }}
             />

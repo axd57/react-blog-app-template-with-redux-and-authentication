@@ -5,7 +5,7 @@ import { login } from "../actions/auth";
 const LoginPage = () =>{
     return(
     <div>
-        <div>Login Page</div>
+        <p>Login Page</p>
         <hr />
         <button onClick={login}>Login</button>
     </div>
