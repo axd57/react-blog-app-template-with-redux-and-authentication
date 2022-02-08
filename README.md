@@ -1,4 +1,7 @@
 # React Blog App Template
+<p align="center">
+  <img src="./banner.png"/> 
+</p>
 
 Template for blog apps.
 
